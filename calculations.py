@@ -70,7 +70,7 @@ def china_bestoffer_calculation(price):
     price_p = price
     price_p.text = f'{prices[1]}'
     #price_p.json["text"] = f'{prices[1]}'
-    print(price_n.text,price_p.text)
+    print(price_n.text, price_p.text)
     max_nice = max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n),kitdo_nice_calculation(price_n))
     max_poison = max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p),kitdo_poison_calculation(price_p))
     if max_nice > max_poison:
