@@ -1,5 +1,6 @@
 import const
 from exchange_rates import *
+import copy
 from telebot import types
 
 def uvarov_calculation(price):
@@ -62,29 +63,37 @@ def stockx_bestoffer_calculation(price):
     if max(uvarov_calculation(price), kikox_calculation(price),kitdousa_calculation(price)) == kitdousa_calculation(price):
         return f'Лучшее предложение на StockX - КитДо USA. Сумма выплаты: {round(max(uvarov_calculation(price), kikox_calculation(price),kitdousa_calculation(price)), 2)}$ = {round(max(uvarov_calculation(price), kikox_calculation(price),kitdousa_calculation(price)) * USD, 2)}, руб. по курсу ЦБ РФ'
 
+def max_nice(price):
+    return max(nekit_nice_calculation(price), quasar_nice_calculation(price), kitdo_nice_calculation(price))
+
+def max_poison(price):
+    return max(nekit_poison_calculation(price), quasar_poison_calculation(price),kitdo_poison_calculation(price))
+
+
 def china_bestoffer_calculation(price):
     prices = price.text.split(",")
-    price_n = price
+    price_n = copy.deepcopy(price)
     #price_n.json["text"] = f'{prices[0]}'
     price_n.text = f'{prices[0]}'
-    price_p = price
+    price_p = copy.deepcopy(price)
     price_p.text = f'{prices[1]}'
+    print(price_p.text.isdigit())
     #price_p.json["text"] = f'{prices[1]}'
     print(price_n.text, price_p.text)
-    max_nice = max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n),kitdo_nice_calculation(price_n))
-    max_poison = max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p),kitdo_poison_calculation(price_p))
-    if max_nice > max_poison:
-        if max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) == nekit_nice_calculation(price_n):
-            return f'Лучшее предложение в Китае - НеКит.Nice. Сумма выплаты: {round(max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)), 2)}¥ = {round(max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) * CNY, 2)}'
-        if max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) == quasar_nice_calculation(price_n):
-            return f'Лучшее предложение в Китае - Quasar Logistic.Nice. Сумма выплаты: {round(max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)), 2)}¥ = {round(max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) * CNY, 2)}'
+    max_n = max_nice(price_n)
+    max_p = max_poison(price_p)
+    if max_n > max_p:
+        if max_nice(price_n) == nekit_nice_calculation(price_n):
+            return f'Лучшее предложение в Китае - НеКит.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}'
+        if max_nice(price_n) == quasar_nice_calculation(price_n):
+            return f'Лучшее предложение в Китае - Quasar Logistic.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}'
         if max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) == kitdo_nice_calculation(price_n):
-            return f'Лучшее предложение в Китае - КитДо.Nice. Сумма выплаты: {round(max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)), 2)}¥ = {round(max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - КитДо.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}'
     else:
-        if max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)) == nekit_poison_calculation(price_p):
-            return f'Лучшее предложение в Китае - НеКит.Poison. Сумма выплаты: {round(max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)), 2)}¥ = {round(max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)) * CNY, 2)}'
-        if max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)) == quasar_poison_calculation(price_p):
-            return f'Лучшее предложение в Китае - Quasar Logistic.Poison. Сумма выплаты: {round(max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)), 2)}¥ = {round(max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)) * CNY, 2)}'
-        if max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)) == kitdo_poison_calculation(price_p):
-            return f'Лучшее предложение в Китае - КитДо.Poison. Сумма выплаты: {round(max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)), 2)}¥ = {round(max(nekit_poison_calculation(price_p), quasar_poison_calculation(price_p), kitdo_poison_calculation(price_p)) * CNY, 2)}'
+        if max_poison(price_p) == nekit_poison_calculation(price_p):
+            return f'Лучшее предложение в Китае - НеКит.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}'
+        if max_poison(price_p) == quasar_poison_calculation(price_p):
+            return f'Лучшее предложение в Китае - Quasar Logistic.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}'
+        if max_poison(price_p) == kitdo_poison_calculation(price_p):
+            return f'Лучшее предложение в Китае - КитДо.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}'
 

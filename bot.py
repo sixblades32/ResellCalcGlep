@@ -12,10 +12,6 @@ bot = telebot.TeleBot(const.api_token)
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     name = f"{message.from_user.first_name} {message.from_user.last_name}"
-    markup = types.ReplyKeyboardMarkup(row_width=3)
-    markup.add('StockX')
-    markup.add('Nice')
-    markup.add('Poison')
     bot.send_message(message.chat.id, f'Привет, {name}, я твой реселл-калькулятор!')
     marketplace_menu(message)
 
@@ -27,22 +23,24 @@ def marketplace_menu(message):
     markup.add('Poison')
     markup.add('Лучшее предложение(beta)')
     if message.text == 'Назад к выбору площадки':
-        bot.send_message(message.chat.id, 'Хорошо:)', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Хорошо, выбери площадку:', reply_markup=markup)
         bot.register_next_step_handler(message, handler_menu)
     else:
         bot.send_message(message.chat.id, f'{wording["welcome"]}', reply_markup=markup)
         bot.register_next_step_handler(message, handler_menu)
 
-
 def handler_menu(message):
     if message.text == 'StockX':
         stockx(message)
-    if message.text == 'Nice':
+    elif message.text == 'Nice':
         nice(message)
-    if message.text == 'Poison':
+    elif message.text == 'Poison':
         poison(message)
-    if message.text == 'Лучшее предложение(beta)':
+    elif message.text == 'Лучшее предложение(beta)':
         bestoffer(message)
+    else:
+        bot.send_message(message.chat.id, 'Выбери доступный вариант:')
+        bot.register_next_step_handler(message, handler_menu)
 
 
 def stockx(message):
