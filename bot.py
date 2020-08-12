@@ -38,8 +38,10 @@ def handler_menu(message):
         poison(message)
     elif message.text == 'Лучшее предложение(beta)':
         bestoffer(message)
+    elif message.text == '/start':
+        send_welcome(message)
     else:
-        bot.send_message(message.chat.id, 'Выбери доступный вариант:')
+        bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
         bot.register_next_step_handler(message, handler_menu)
 
 
@@ -53,12 +55,18 @@ def stockx(message):
 def stockx_handler(message):
     if message.text == 'Алексей Уваров':
         uvarov(message)
-    if message.text == 'kikoX':
+    elif message.text == 'kikoX':
         kikox(message)
-    if message.text == 'КитДо USA':
+    elif message.text == 'КитДо USA':
         kitdousa(message)
-    if message.text == 'Назад к выбору площадки':
+    elif message.text == 'Назад к выбору площадки':
         marketplace_menu(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    else:
+        bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
+        bot.register_next_step_handler(message, stockx_handler)
+
 
 
 def uvarov(message):
@@ -131,12 +139,17 @@ def nice(message):
 def nice_handler(message):
     if message.text == 'НеКит':
         nekit_nice(message)
-    if message.text == 'Quasar Logistic':
+    elif message.text == 'Quasar Logistic':
         quasar_nice(message)
-    if message.text == 'КитДо':
+    elif message.text == 'КитДо':
         kitdo_nice(message)
-    if message.text == 'Назад к выбору площадки':
+    elif message.text == 'Назад к выбору площадки':
         marketplace_menu(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    else:
+        bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
+        bot.register_next_step_handler(message, nice_handler)
 
 
 def nekit_nice(message):
@@ -209,12 +222,17 @@ def poison(message):
 def poison_handler(message):
     if message.text == 'НеКит':
         nekit_poison(message)
-    if message.text == 'Quasar Logistic':
+    elif message.text == 'Quasar Logistic':
         quasar_poison(message)
-    if message.text == 'КитДо':
+    elif message.text == 'КитДо':
         kitdo_poison(message)
-    if message.text == 'Назад к выбору площадки':
+    elif message.text == 'Назад к выбору площадки':
         marketplace_menu(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    else:
+        bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
+        bot.register_next_step_handler(message, poison_handler)
 
 
 def nekit_poison(message):
@@ -287,12 +305,17 @@ def bestoffer(message):
 def bestoffer_handler(message):
     if message.text == 'StockX':
         stockx_bestoffer(message)
-    if message.text == 'Китай':
+    elif message.text == 'Китай':
         china_bestoffer(message)
-    if message.text == 'На всех площадках':
+    elif message.text == 'На всех площадках':
         all_bestoffer(message)
-    if message.text == 'Назад к выбору площадки':
+    elif message.text == 'Назад к выбору площадки':
         marketplace_menu(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    else:
+        bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
+        bot.register_next_step_handler(message, stockx_handler)
 
 
 def stockx_bestoffer(message):
@@ -331,6 +354,23 @@ def china_bestoffer_calc(message):
         else:
             bot.send_message(message.chat.id, f'Введи корректное значение!')
             bot.register_next_step_handler(message, china_bestoffer_calc)
+
+def all_bestoffer(message):
+    bot.send_message(message.chat.id, f'{wording["all"]}')
+    bot.register_next_step_handler(message, all_bestoffer_calc)
+def all_bestoffer_calc(message):
+    if bestoffer_backandchange(message):
+        bestoffer_handler(message)
+    else:
+        if isinstance(message.text.split(","), list):
+            bot.send_message(message.chat.id, f'{all_bestoffer_calculation(message)}, {wording["retryandback"]}')
+            bot.register_next_step_handler(message, bestoffer_handler)
+        elif message.text == '/start':
+            send_welcome(message)
+        else:
+            bot.send_message(message.chat.id, f'Введи корректное значение!')
+            bot.register_next_step_handler(message, all_bestoffer_calc)
+
 
 def stockx_backandchange(message):
     if message.text == 'Алексей Уваров' or message.text == 'kikoX' or message.text == 'КитДо USA' or message.text == 'Назад к выбору площадки':
