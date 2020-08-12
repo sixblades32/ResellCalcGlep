@@ -315,7 +315,7 @@ def bestoffer_handler(message):
         send_welcome(message)
     else:
         bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
-        bot.register_next_step_handler(message, stockx_handler)
+        bot.register_next_step_handler(message, bestoffer_handler)
 
 
 def stockx_bestoffer(message):
