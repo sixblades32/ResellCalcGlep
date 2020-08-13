@@ -100,7 +100,7 @@ def kikox_calc(message):
     else:
         if f'{message.text}'.isdigit():
             if float(message.text)> 950:
-                bot.send_message(message.chat.id,f"Для расчета выплаты через kikoX при продаже товара на сумму свыше 950$ обратись в сообщество kikoX Вконтакте!")
+                bot.send_message(message.chat.id,f"Для расчета выплаты через kikoX при продаже товара на сумму свыше 950$ обратись в сообщество kikoX Вконтакте! Воспользуйся кнопками для дальнейших расчетов")
                 bot.register_next_step_handler(message, kikox_calc)
             else:
                 bot.send_message(message.chat.id,
