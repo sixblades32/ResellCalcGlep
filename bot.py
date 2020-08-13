@@ -391,4 +391,4 @@ def bestoffer_backandchange(message):
         return True
 
 
-bot.infinity_polling()
+bot.infinity_polling(True)
