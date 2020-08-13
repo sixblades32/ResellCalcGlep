@@ -47,13 +47,13 @@ def handler_menu(message):
 
 def stockx(message):
     markup = types.ReplyKeyboardMarkup(row_width=3)
-    markup.add('Алексей Уваров', 'kikoX', 'КитДо USA', 'Назад к выбору площадки')
+    markup.add('Алексей Уваров(Affliction#6369)', 'kikoX', 'КитДо USA', 'Назад к выбору площадки')
     bot.send_message(message.chat.id, "Выбери посредника:", reply_markup=markup)
     bot.register_next_step_handler(message, stockx_handler)
 
 
 def stockx_handler(message):
-    if message.text == 'Алексей Уваров':
+    if message.text == 'Алексей Уваров(Affliction#6369)':
         uvarov(message)
     elif message.text == 'kikoX':
         kikox(message)
