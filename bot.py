@@ -352,7 +352,7 @@ def china_bestoffer_calc(message):
         elif message.text == '/start':
             send_welcome(message)
         else:
-            bot.send_message(message.chat.id, f'Введи корректное значение!')
+            bot.send_message(message.chat.id, f'Неверный формат ввода!')
             bot.register_next_step_handler(message, china_bestoffer_calc)
 
 def all_bestoffer(message):
@@ -368,7 +368,7 @@ def all_bestoffer_calc(message):
         elif message.text == '/start':
             send_welcome(message)
         else:
-            bot.send_message(message.chat.id, f'Введи корректное значение!')
+            bot.send_message(message.chat.id, f'Неверный формат ввода!')
             bot.register_next_step_handler(message, all_bestoffer_calc)
 
 
