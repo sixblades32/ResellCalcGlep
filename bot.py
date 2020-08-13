@@ -345,9 +345,9 @@ def china_bestoffer_calc(message):
     if bestoffer_backandchange(message):
         bestoffer_handler(message)
     else:
-        if isinstance(message.text.split(","), list):
+        if len(message.text.split(",")) == 2:
             bot.send_message(message.chat.id,
-                             f'{china_bestoffer_calculation(message)} руб. по курсу ЦБ РФ, {wording["retryandback"]}')
+                                f'{china_bestoffer_calculation(message)} руб. по курсу ЦБ РФ, {wording["retryandback"]}')
             bot.register_next_step_handler(message, bestoffer_handler)
         elif message.text == '/start':
             send_welcome(message)
@@ -362,7 +362,7 @@ def all_bestoffer_calc(message):
     if bestoffer_backandchange(message):
         bestoffer_handler(message)
     else:
-        if isinstance(message.text.split(","), list):
+        if len(message.text.split(",")) == 3:
             bot.send_message(message.chat.id, f'{all_bestoffer_calculation(message)}, {wording["retryandback"]}')
             bot.register_next_step_handler(message, bestoffer_handler)
         elif message.text == '/start':
