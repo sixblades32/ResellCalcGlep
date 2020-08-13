@@ -21,7 +21,7 @@ def marketplace_menu(message):
     markup.add('StockX')
     markup.add('Nice')
     markup.add('Poison')
-    markup.add('Лучшее предложение(beta)')
+    markup.add('Лучшее предложение')
     if message.text == 'Назад к выбору площадки':
         bot.send_message(message.chat.id, 'Хорошо, выбери площадку:', reply_markup=markup)
         bot.register_next_step_handler(message, handler_menu)
