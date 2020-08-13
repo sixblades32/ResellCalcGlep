@@ -99,9 +99,12 @@ def kikox_calc(message):
         stockx_handler(message)
     else:
         if f'{message.text}'.isdigit():
-            bot.send_message(message.chat.id,
+            if float(message.text)> 950:
+                bot.send_message(message.chat.id,f"Для расчета выплаты через kikoX при продаже товара на сумму свыше 950$ обратись в сообщество kikoX Вконтакте!")
+            else:
+                bot.send_message(message.chat.id,
                              f'Сумма выплаты {kikox_calculation(message)}$ = {round(kikox_calculation(message) * const.usdkikox, 2)} руб. по курсу Paypal указанному в сообществе kikoX, {wording["retryandback"]}')
-            bot.register_next_step_handler(message, stockx_handler)
+                bot.register_next_step_handler(message, stockx_handler)
         elif message.text == '/start':
             send_welcome(message)
         else:
