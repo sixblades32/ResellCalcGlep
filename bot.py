@@ -36,7 +36,7 @@ def handler_menu(message):
         nice(message)
     elif message.text == 'Poison':
         poison(message)
-    elif message.text == 'Лучшее предложение(beta)':
+    elif message.text == 'Лучшее предложение':
         bestoffer(message)
     elif message.text == '/start':
         send_welcome(message)
