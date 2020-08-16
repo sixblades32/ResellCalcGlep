@@ -91,18 +91,18 @@ def china_bestoffer_calculation(price):
     max_p = max_poison(price_p)
     if max_n > max_p:
         if max_nice(price_n) == nekit_nice_calculation(price_n):
-            return f'Лучшее предложение в Китае - НеКит.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - НеКит.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}, руб. по курсу ЦБ РФ'
         if max_nice(price_n) == quasar_nice_calculation(price_n):
-            return f'Лучшее предложение в Китае - Quasar Logistic.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - Quasar Logistic.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}, руб. по курсу ЦБ РФ'
         if max(nekit_nice_calculation(price_n), quasar_nice_calculation(price_n), kitdo_nice_calculation(price_n)) == kitdo_nice_calculation(price_n):
-            return f'Лучшее предложение в Китае - КитДо.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - КитДо.Nice. Сумма выплаты: {round(max_nice(price_n), 2)}¥ = {round(max_nice(price_n) * CNY, 2)}, руб. по курсу ЦБ РФ'
     else:
         if max_poison(price_p) == nekit_poison_calculation(price_p):
-            return f'Лучшее предложение в Китае - НеКит.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - НеКит.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}, руб. по курсу ЦБ РФ'
         if max_poison(price_p) == quasar_poison_calculation(price_p):
-            return f'Лучшее предложение в Китае - Quasar Logistic.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - Quasar Logistic.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}, руб. по курсу ЦБ РФ'
         if max_poison(price_p) == kitdo_poison_calculation(price_p):
-            return f'Лучшее предложение в Китае - КитДо.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}'
+            return f'Лучшее предложение в Китае - КитДо.Poison. Сумма выплаты: {round(max_poison(price_p), 2)}¥ = {round(max_poison(price_p) * CNY, 2)}, руб. по курсу ЦБ РФ'
 
 def all_bestoffer_calculation(price):
     prices = price.text.split(",")
