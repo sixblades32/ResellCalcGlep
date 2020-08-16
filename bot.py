@@ -147,7 +147,7 @@ def nice_handler(message):
         quasar_nice(message)
     elif message.text == 'КитДо':
         kitdo_nice(message)
-    #elif message.text == 'Индивидуальные условия':
+    #elif message.text == 'Индивидуальные условия(не нажимать!!!)':
         #individual_terms(message)
     elif message.text == 'Назад к выбору площадки':
         marketplace_menu(message)
