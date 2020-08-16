@@ -147,8 +147,8 @@ def nice_handler(message):
         quasar_nice(message)
     elif message.text == 'КитДо':
         kitdo_nice(message)
-    elif message.text == 'Индивидуальные условия':
-        individual_terms(message)
+    #elif message.text == 'Индивидуальные условия':
+        #individual_terms(message)
     elif message.text == 'Назад к выбору площадки':
         marketplace_menu(message)
     elif message.text == '/start':
@@ -217,31 +217,31 @@ def kitdo_nice_calc(message):
             bot.send_message(message.chat.id, f'Введи корректное значение!')
             bot.register_next_step_handler(message, kitdo_nice_calc)
 
-def individual_terms(message):
+#def individual_terms(message):
     bot.send_message(message.chat.id, f'{wording["nice"]}')
     bot.register_next_step_handler(message, commission_handler)
 
-def commission_handler(message):
-    markup = types.ReplyKeyboardMarkup(row_width=3)
-    markup.add('НеКит', 'Quasar Logistic', 'КитДо')
-    bot.send_message(message.chat.id, f'{wording["commission"]}',reply_markup=markup)
-    bot.register_next_step_handler(message,exchange_rate)
-def exchange_rate(message):
-    bot.send_message(message.chat.id, f'{wording["commission"]}')
-    bot.register_next_step_handler(message, exchange_rate)
-def individual_terms_calc(message):
-    if nice_backandchange(message):
-        nice_handler(message)
-    else:
-        if f'{message.text}'.isdigit():
-            bot.send_message(message.chat.id,
-                             f'Сумма выплаты {kitdo_nice_calculation(message)}¥ = {round(kitdo_nice_calculation(message) * exchange_rates.CNY, 2)} руб. по курсу ЦБ РФ, {wording["retryandback"]}')
-            bot.register_next_step_handler(message, nice_handler)
-        elif message.text == '/start':
-            send_welcome(message)
-        else:
-            bot.send_message(message.chat.id, f'Введи корректное значение!')
-            bot.register_next_step_handler(message, kitdo_nice_calc)
+# #def commission_handler(message):
+#     markup = types.ReplyKeyboardMarkup(row_width=3)
+#     markup.add('НеКит', 'Quasar Logistic', 'КитДо')
+#     bot.send_message(message.chat.id, f'{wording["commission"]}',reply_markup=markup)
+#     bot.register_next_step_handler(message,exchange_rate)
+# #def exchange_rate(message):
+#     bot.send_message(message.chat.id, f'{wording["commission"]}')
+#     bot.register_next_step_handler(message, exchange_rate)
+# #def individual_terms_calc(message):
+#     if nice_backandchange(message):
+#         nice_handler(message)
+#     else:
+#         if f'{message.text}'.isdigit():
+#             bot.send_message(message.chat.id,
+#                              f'Сумма выплаты {kitdo_nice_calculation(message)}¥ = {round(kitdo_nice_calculation(message) * exchange_rates.CNY, 2)} руб. по курсу ЦБ РФ, {wording["retryandback"]}')
+#             bot.register_next_step_handler(message, nice_handler)
+#         elif message.text == '/start':
+#             send_welcome(message)
+#         else:
+#             bot.send_message(message.chat.id, f'Введи корректное значение!')
+#             bot.register_next_step_handler(message, kitdo_nice_calc)
 def poison(message):
     markup = types.ReplyKeyboardMarkup(row_width=3)
     markup.add('НеКит', 'Quasar Logistic', 'КитДо', 'Назад к выбору площадки')
