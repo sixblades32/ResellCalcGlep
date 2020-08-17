@@ -1,6 +1,7 @@
 import const
 from exchange_rates import *
 import copy
+from commission import *
 from telebot import types
 
 def uvarov_calculation(price):
@@ -122,4 +123,7 @@ def all_bestoffer_calculation(price):
     else:
         return china_bestoffer_calculation(price_c)
 
+def individual_calculation_nice(price):
+    x = float(price)
+    return round(x * (0.97 + float(commissions_rate['comm_percent'])/100) - 40) - float(commissions_rate['comm_value'])/CNY
 

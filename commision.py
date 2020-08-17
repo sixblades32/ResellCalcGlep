@@ -1,1 +1,0 @@
-commissions_rate = {"price":}
