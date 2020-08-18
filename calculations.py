@@ -127,3 +127,6 @@ def individual_calculation_nice(price):
     x = float(price)
     return round(x * (0.97 + float(commissions_rate['comm_percent'])/100) - 40) - float(commissions_rate['comm_value'])/CNY
 
+def individual_calculation_poison(price):
+    x = float(price)
+    return round(x * (0.97 + float(commissions_rate['comm_percent'])/100) - 40) - float(commissions_rate['comm_value'])/CNY
