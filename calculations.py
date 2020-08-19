@@ -125,8 +125,16 @@ def all_bestoffer_calculation(price):
 
 def individual_calculation_nice(price):
     x = float(price)
-    return round(x * (0.97 + float(commissions_rate['comm_percent'])/100) - 40) - float(commissions_rate['comm_value'])/CNY
+    return round(x * (0.97 - float(commissions_rate['comm_percent'])/100) - 40) - float(commissions_rate['comm_value'])/CNY
 
 def individual_calculation_poison(price):
     x = float(price)
-    return round(x * (0.97 + float(commissions_rate['comm_percent'])/100) - 40) - float(commissions_rate['comm_value'])/CNY
+    return round(x * (0.94 - float(commissions_rate_p['comm_percent'])/100) - 40) - float(commissions_rate_p['comm_value'])/CNY
+
+def uvarov_goat_calculation(price):
+    x = float(price.text)
+    return round((x * 0.905 - 30)-(x * 0.905 - 30)*0.029 - x*0.05, 2)
+
+def kitdo_goat_calculation(price):
+    x = float(price.text)
+    return round(x * 0.905 - 28)

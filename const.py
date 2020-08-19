@@ -1,4 +1,4 @@
-api_token = '1105849298:AAFzOv7Xoz0PMGzttMU-8EYfTVX6w_GNPSg'
+api_token = '1388629129:AAG80XMvcZMerSAzKo2faRLgSdcEH_JJGss'
 usdkikox = 70.67
 
 def test(self):

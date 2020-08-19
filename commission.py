@@ -8,3 +8,5 @@ commissions_rate_p = {"price":"",
                     "comm_percent":"",
                     "exchange_rate":""
                            }
+
+print(float('-1.5'))

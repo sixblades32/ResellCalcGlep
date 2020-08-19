@@ -18,10 +18,11 @@ def send_welcome(message):
 
 
 def marketplace_menu(message):
-    markup = types.ReplyKeyboardMarkup(row_width=3)
+    markup = types.ReplyKeyboardMarkup(row_width=4)
     markup.add('StockX')
     markup.add('Nice')
     markup.add('Poison')
+    markup.add('GOAT')
     markup.add('Лучшее предложение')
     if message.text == 'Назад к выбору площадки':
         bot.send_message(message.chat.id, 'Хорошо, выбери площадку:', reply_markup=markup)
@@ -38,6 +39,8 @@ def handler_menu(message):
         nice(message)
     elif message.text == 'Poison':
         poison(message)
+    elif message.text == 'GOAT':
+        goat(message)
     elif message.text == 'Лучшее предложение':
         bestoffer(message)
     elif message.text == '/start':
@@ -264,6 +267,10 @@ def commission_handler(message):
     elif message.text.isdigit() and commissions_rate["exchange_rate"] != '':
         commissions_rate['price'] = f'{message.text}'
         individual_terms_calc(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    elif message.text == 'Назад к выбору площадки':
+        marketplace_menu(message)
     else:
         bot.send_message(message.chat.id, "Введи корректное значение!")
         bot.register_next_step_handler(message, commission_handler)
@@ -477,7 +484,7 @@ def individual_terms_p(message):
 
 def individual_terms_handler_p(message):
     if message.text == 'Рассчитать':
-        individual_terms_price(message)
+        individual_terms_price_p(message)
     elif message.text == 'Изменить':
         commissions_rate_p["comm_value"] = ''
         commissions_rate_p["comm_percent"] = ''
@@ -507,6 +514,10 @@ def commission_handler_p(message):
     elif message.text.isdigit() and commissions_rate_p["exchange_rate"] != '':
         commissions_rate_p['price'] = f'{message.text}'
         individual_terms_calc_p(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    elif message.text == 'Назад к выбору площадки':
+        marketplace_menu(message)
     else:
         bot.send_message(message.chat.id, "Введи корректное значение!")
         bot.register_next_step_handler(message, commission_handler_p)
@@ -519,11 +530,11 @@ def commission_check_p(message):
         bot.send_message(message.chat.id, f'{wording["commission_choose"]}', reply_markup=markup)
         bot.register_next_step_handler(message, commission_format_p)
     elif message.text == 'НеКит':
-        commission_value(message)
+        commission_value_p(message)
     elif message.text == 'КитДо':
-        commission_value(message)
+        commission_value_p(message)
     elif message.text == 'Quasar Logistic':
-        commission_value(message)
+        commission_value_p(message)
     elif message.text == '/start':
         send_welcome(message)
     else:
@@ -558,11 +569,11 @@ def commission_value_p(message):
         bot.register_next_step_handler(message, comm_exchange_rates_p)
     elif message.text == 'НеКит':
         bot.send_message(message.chat.id, f'{wording["exchange_rate"]}')
-        commissions_rate_p['comm_percent'] = '0'
+        commissions_rate_p['comm_percent'] = '-1.5'
         commissions_rate_p['comm_value'] = '0'
         bot.register_next_step_handler(message, comm_exchange_rates_p)
     elif message.text == 'КитДо':
-        if float(commissions_rate['price']) < 5000:
+        if float(commissions_rate_p['price']) < 5000:
             commissions_rate_p['comm_value'] = f'{1500 / CNY}'
             commissions_rate_p['comm_percent'] = '0'
             bot.send_message(message.chat.id, f'{wording["exchange_rate"]}')
@@ -623,7 +634,7 @@ def individual_terms_calc_p(message):
 
 
 def bestoffer(message):
-    markup = types.ReplyKeyboardMarkup(row_width=3)
+    markup = types.ReplyKeyboardMarkup(row_width=1)
     markup.add('StockX', 'Китай', 'На всех площадках', 'Назад к выбору площадки')
     bot.send_message(message.chat.id, "Выбери вариант:", reply_markup=markup)
     bot.register_next_step_handler(message, bestoffer_handler)
@@ -702,11 +713,72 @@ def all_bestoffer_calc(message):
             bot.send_message(message.chat.id, f'Неверный формат ввода!')
             bot.register_next_step_handler(message, all_bestoffer_calc)
 
+def goat(message):
+    markup = types.ReplyKeyboardMarkup(row_width=1)
+    markup.add('Алексей Уваров(Affliction#6369)', 'КитДо', 'Назад к выбору площадки')
+    bot.send_message(message.chat.id, "Выбери посредника:", reply_markup=markup)
+    bot.register_next_step_handler(message, goat_handler)
+
+
+def goat_handler(message):
+    if message.text == 'Алексей Уваров(Affliction#6369)':
+        uvarov_goat(message)
+    elif message.text == 'КитДо':
+        kitdo_goat(message)
+    elif message.text == 'Назад к выбору площадки':
+        marketplace_menu(message)
+    elif message.text == '/start':
+        send_welcome(message)
+    else:
+        bot.send_message(message.chat.id, 'Выбери один из предложенных вариантов!')
+        bot.register_next_step_handler(message, goat_handler)
+
+def uvarov_goat(message):
+    bot.send_message(message.chat.id, f'{wording["goat"]}')
+    bot.register_next_step_handler(message, uvarov_goat_calc)
+
+
+def uvarov_goat_calc(message):
+    if goat_backandchange(message):
+        goat_handler(message)
+    else:
+        if f'{message.text}'.isdigit():
+            bot.send_message(message.chat.id,
+                             f'Сумма выплаты {uvarov_goat_calculation(message)}$ = {round(uvarov_goat_calculation(message) * exchange_rates.USD, 2)} руб. по курсу ЦБ РФ, {wording["retryandback"]}')
+            bot.register_next_step_handler(message, goat_handler)
+        elif message.text == '/start':
+            send_welcome(message)
+        else:
+            bot.send_message(message.chat.id, f'Введи корректное значение!')
+            bot.register_next_step_handler(message, uvarov_goat_calc)
+
+def kitdo_goat(message):
+    bot.send_message(message.chat.id, f'{wording["goat"]}')
+    bot.register_next_step_handler(message, kitdo_goat_calc)
+
+
+def kitdo_goat_calc(message):
+    if goat_backandchange(message):
+        goat_handler(message)
+    else:
+        if f'{message.text}'.isdigit():
+            bot.send_message(message.chat.id,
+                             f'Сумма выплаты {kitdo_goat_calculation(message)}$ = {round(kitdo_goat_calculation(message) * exchange_rates.USD, 2)} руб. по курсу ЦБ РФ, {wording["retryandback"]}')
+            bot.register_next_step_handler(message, goat_handler)
+        elif message.text == '/start':
+            send_welcome(message)
+        else:
+            bot.send_message(message.chat.id, f'Введи корректное значение!')
+            bot.register_next_step_handler(message, kitdo_goat_calc)
+
 
 def stockx_backandchange(message):
     if message.text == 'Алексей Уваров(Affliction#6369)' or message.text == 'kikoX' or message.text == 'КитДо USA' or message.text == 'Назад к выбору площадки':
         return True
 
+def goat_backandchange(message):
+    if message.text == 'Алексей Уваров(Affliction#6369)' or message.text == 'КитДо' or message.text == 'Назад к выбору площадки':
+        return True
 
 def nice_backandchange(message):
     if message.text == 'НеКит' or message.text == 'Quasar Logistic' or message.text == 'КитДо' or message.text == 'Индивидуальные условия' or message.text == 'Назад к выбору площадки':
